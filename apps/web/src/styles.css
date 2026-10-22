@@ -1,0 +1,513 @@
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --text: #1b2030;
+  --muted: #5d6578;
+  --line: #d5d9e4;
+  --track: #cdd2df;
+  --dot: #39415a;
+  --p0: #2563eb;
+  --p1: #d9480f;
+  --focus: #111827;
+  --radius: 14px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151f;
+    --surface: #1c2130;
+    --text: #eef0f6;
+    --muted: #a3abc0;
+    --line: #2f3750;
+    --track: #343c55;
+    --dot: #c7cde0;
+    --p0: #6ea0ff;
+    --p1: #ff9a5c;
+    --focus: #f3f4f6;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+main {
+  width: min(100%, 640px);
+  margin: 0 auto;
+  padding: 16px max(16px, env(safe-area-inset-right)) 24px max(16px, env(safe-area-inset-left));
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1.15;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Buttons ---------- */
+
+.primary,
+.secondary {
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.primary {
+  background: var(--p0);
+  color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .primary {
+    color: #0b1020;
+  }
+}
+
+.secondary {
+  background: transparent;
+  border-color: var(--line);
+}
+
+.link {
+  background: none;
+  border: 0;
+  padding: 10px 4px;
+  min-height: 44px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* ---------- Home ---------- */
+
+.home {
+  padding-top: max(32px, 8vh);
+}
+
+.home h1 {
+  font-size: clamp(2rem, 8vw, 3rem);
+}
+
+.lede {
+  color: var(--muted);
+  margin: 8px 0 24px;
+}
+
+.home-form {
+  display: grid;
+  gap: 20px;
+}
+
+fieldset {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: grid;
+  gap: 12px;
+}
+
+legend {
+  padding: 0 6px;
+  font-weight: 650;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  align-items: center;
+}
+
+.field-label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.field .swatch {
+  grid-row: 1 / span 2;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.field input {
+  grid-column: 2;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.p0 .swatch {
+  background: var(--p0);
+}
+
+.p1 .swatch {
+  background: var(--p1);
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+}
+
+.chip span {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.chip input:checked + span {
+  border-color: var(--p0);
+  background: color-mix(in srgb, var(--p0) 14%, transparent);
+}
+
+.chip input:focus-visible + span {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  min-height: 1.4em;
+  color: #c0182b;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .error {
+    color: #ff8896;
+  }
+}
+
+/* ---------- Game ---------- */
+
+.game {
+  display: grid;
+  gap: 12px;
+}
+
+.topbar {
+  display: flex;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.player {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    'badge name score'
+    'badge turn score';
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  min-width: 0;
+}
+
+.player.active.p0 {
+  border-color: var(--p0);
+}
+
+.player.active.p1 {
+  border-color: var(--p1);
+}
+
+.badge {
+  grid-area: badge;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-weight: 700;
+  color: #fff;
+}
+
+.p0 .badge {
+  background: var(--p0);
+}
+
+.p1 .badge {
+  background: var(--p1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .badge {
+    color: #0b1020;
+  }
+}
+
+.name {
+  grid-area: name;
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.turn {
+  grid-area: turn;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.score {
+  grid-area: score;
+  font-size: 1.75rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  margin: 0;
+  min-height: 1.4em;
+  text-align: center;
+  color: var(--muted);
+}
+
+.board-wrap {
+  display: grid;
+  justify-items: center;
+  touch-action: manipulation;
+}
+
+/* ---------- Board ---------- */
+
+.board {
+  --turn: var(--p0);
+  width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 260px);
+  min-height: 240px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.board.turn-p1 {
+  --turn: var(--p1);
+}
+
+.box {
+  fill: transparent;
+}
+
+.box.claimed.p0 {
+  fill: color-mix(in srgb, var(--p0) 24%, transparent);
+  animation: pop 0.3s ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.box.claimed.p1 {
+  fill: color-mix(in srgb, var(--p1) 24%, transparent);
+  animation: pop 0.3s ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.box-label {
+  font-size: 44px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.box-label.p0 {
+  fill: var(--p0);
+}
+
+.box-label.p1 {
+  fill: var(--p1);
+}
+
+.edge {
+  cursor: pointer;
+  outline: none;
+}
+
+.edge .track {
+  stroke: var(--track);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 2 10;
+}
+
+.edge .stroke {
+  stroke-width: 10;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.edge .hit {
+  stroke: transparent;
+  stroke-linecap: butt;
+}
+
+.edge.drawn {
+  cursor: default;
+}
+
+.edge.drawn .track {
+  opacity: 0;
+}
+
+.edge.drawn .stroke {
+  opacity: 1;
+}
+
+.edge.p0 .stroke {
+  stroke: var(--p0);
+}
+
+.edge.p1 .stroke {
+  stroke: var(--p1);
+}
+
+.edge.fresh .stroke {
+  stroke-dasharray: 100;
+  animation: draw 0.22s ease-out;
+}
+
+@media (hover: hover) {
+  .board:not(.finished) .edge:not(.drawn):hover .track {
+    stroke: var(--turn);
+    stroke-width: 10;
+    stroke-dasharray: none;
+    opacity: 0.45;
+  }
+}
+
+.edge:focus-visible .track {
+  stroke: var(--turn);
+  stroke-width: 12;
+  stroke-dasharray: none;
+}
+
+.dot {
+  fill: var(--dot);
+  pointer-events: none;
+}
+
+.finished .edge {
+  cursor: default;
+}
+
+/* ---------- Result ---------- */
+
+.result {
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  text-align: center;
+  display: grid;
+  gap: 8px;
+}
+
+.result[hidden] {
+  display: none;
+}
+
+.result h2 {
+  font-size: 1.75rem;
+}
+
+.result p {
+  margin: 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,6 +1,6 @@
 # Dots and Boxes — Plan & Architecture
 
-Status: **Phase 1, milestones 1-3 done (scaffold, game core, core tests). UI not started.**
+Status: **Phase 1: core, session layer and a first playable UI are implemented. Works in a desktop browser (owner-verified); mobile/touch is not yet verified. Design decisions are logged in `DECISIONS.md` (append-only).**
 
 ## Finalized decisions (supersede anything below that disagrees)
 
@@ -19,11 +19,11 @@ Status: **Phase 1, milestones 1-3 done (scaffold, game core, core tests). UI not
 2. [x] Core types and edge helpers
 3. [x] Reducer, scoring, turns, winner
 4. [x] Core tests (141 passing, including an independent reference-model replay)
-5. [ ] `GameSession` + `LocalSession`
-6. [ ] SVG board (touch targets, keyboard access)
-7. [ ] Home screen, scoreboard, result screen, rematch
-8. [ ] Responsive styling, animations, a11y pass
-9. [ ] Full test run, production build, bundle-size check
+5. [x] `GameSession` + `LocalSession` (`apps/web/src/session`, 23 tests)
+6. [x] SVG board: works in desktop browser (owner-verified), keyboard nav unit-tested, DOM checked in jsdom; touch not yet checked on a phone
+7. [x] Home screen, scoreboard, game-over view, rematch: works in desktop browser (owner-verified)
+8. [ ] Responsive styling, animations, a11y pass: CSS written; mobile and assistive tech not yet verified
+9. [x] Full test run, typecheck, production build, bundle size (4.8 KB gzipped JS at this point)
 
 ---
 
